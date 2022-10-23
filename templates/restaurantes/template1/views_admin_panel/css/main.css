@@ -1,0 +1,463 @@
+*{
+	margin:0;
+	padding:0;
+}
+/*
+:root{
+	--textColor1: #fff;
+	--transparent: rgba(0,0,0,0);
+	--semi-transparent: rgba(255,255,255,.7);
+	--principal-color: #339384;
+	--secondary-color: #55b5a6;
+	--alert-background : rgb(200,100,100);
+}*/
+
+body{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9em;
+}
+
+
+/*generals*/
+
+h1,
+h2,
+h3,
+h4,
+h5{
+	font-family: 'Bebas Neue', cursive;
+	color: var(--principal-color);
+}
+
+hr{
+	width: 50px;
+	background-color: var(--principal-color);
+}
+
+.title_section{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.content_sections{
+	width: 100%;
+	text-align: justify;
+}
+
+.container{
+	left: 300px;
+	width: calc(100% - 300px);
+	position: absolute;
+	background-color: white;
+	padding: 15px;
+	box-sizing: border-box;
+}
+
+
+.hidde{
+	display: none;
+}
+
+#galery,
+#ours,
+#menu,
+#contact,
+#configuration,
+#theme,
+#exit{
+	display: none;
+}
+
+/*alert*/
+
+#alert{
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	padding: 10px;
+	background-color: var(--alert-background);
+	border-radius: 10px;
+}
+#alert h3{
+	color: yellow;
+}
+#alert span{
+	color: white;
+}
+
+
+
+/*login panel*/
+#login h1{
+	color: white;
+	font-size: 3em;
+}
+
+#login{
+	display: flex;
+	height: 100vh;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--principal-color);
+	background-image: url("../../../imgs/background_not_found.png");
+	text-align: center;
+}
+
+#login a,#login a img{
+	width: 100px;
+}
+
+#login_form input,#confirm_user{
+	width: 100%;
+	margin: 10px 0;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+
+#login_form input[type="email"],#login_form input[type="password"]{
+	border: none;
+	color: white;
+	border-bottom: 2px solid var(--secondary-color);
+	background-color: var(--principal-color);
+}
+#login_form input::placeholder{
+	color: white;
+}
+
+#confirm_user{
+	border: 2px solid var(--secondary-color);
+	color: white;
+	background-color: var(--principal-color);
+	transition: all ease-in-out .3s;
+}
+
+
+
+/*aside navigation*/
+aside{
+	width: 300px;
+	position: fixed;
+	padding: 10px;
+	background-color: var(--principal-color);
+	box-sizing: border-box;
+}
+
+aside,
+aside ul{
+	height: 100%;
+}
+
+aside ul{
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+aside ul li{
+	list-style: none;
+}
+
+aside ul li a{
+	width: 100%;
+	color: white;
+	padding: 15px;
+	text-decoration: none;
+	transition: all ease-in-out .3s;
+}
+
+#hamburguer_aside img{
+	display: none;
+	position: fixed;
+	top: 30px;
+	right: 30px;
+	width: 50px;
+	height: 50px;
+}
+
+#logo_bussines img{
+	position: relative;
+	width: 50%;
+}
+
+
+/*general*/
+#general_form,
+#file_section,
+.file_section_form canvas{
+	width: 100%;
+}
+
+#general_form{
+	text-align: center;
+	position: relative;
+}
+
+
+#file_section{
+	position: relative;
+	margin: 20px 0;
+	display: inline-block;
+}
+.file_section_form{
+	width: 40%;
+	display: inline-block;
+}
+.file_section_form label,
+.file_section_form input{
+	display: block;
+}
+
+.file_section_form canvas{
+	height: 300px;
+	background-color: var(--principal-color);
+}
+
+#brand_img{
+	margin-left: 10%;
+}
+
+#general_form input[type="text"],
+.style_text_inputs{
+	margin-bottom: 15px;
+	width: 80%;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 1px solid var(--principal-color);
+}
+
+.send_general_btn{
+	height: 50px;
+	border: none;
+	font-size: 1.3em;
+	color: var(--principal-color);
+	background-color: white;
+	border:  1px solid var(--principal-color);
+	transition: all ease-in-out .3s;
+	width: 90%;
+	margin: 50px 20px;
+}
+
+/*galery*/
+
+.general_content_sections{
+	display: flex;
+	justify-content: space-around;
+}
+
+.style_text_inputs{
+	width: 100%;
+}
+
+/*ours*/
+#imgs_ours{
+	width: 100%;
+	padding: 50px;
+	box-sizing: border-box;
+}
+.imgs_ours_sections{
+	display: flex;
+	justify-content: space-between;
+}
+
+#ours_inputs{
+	width: 100%;
+}
+
+/*menu*/
+.file_section_form select{
+	background-color: white;
+}
+.table{
+	width: 100%;
+	border-collapse:collapse;
+	text-align: center;
+}
+.table_scroll_x{
+	overflow-x: scroll;
+	
+}
+
+.table_head{
+	width: 100%;
+	color: white;
+	background-color: var(--principal-color);
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+.table_head tr th,
+.table_body tr td{
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.table_body tr:nth-child(even){
+	background-color: var(--secondary-color);
+}
+
+.table_body{}
+.preview_table_menu_img{
+	width: 20px;
+	height: 20px;
+}
+
+/*contact*/
+
+
+#contact_indicators,
+#contact_whatsapp{
+	border: none;
+	background-color: white;
+	border-bottom: 1px solid var(--principal-color);
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.contact_select_info_whatsapp{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+#card_configuration,
+#card_contact{
+	border-radius: 10px;
+	padding: 20px;
+	background-color: var(--principal-color);
+	color: white;
+	box-sizing: border-box;
+}
+
+#card_configuration h3,
+#card_contact h3{
+	text-align: center;
+	color: white;
+}
+
+#card_contact img{
+	width: 100%;
+	height: 100%;
+}
+
+
+/*theme*/
+#table_theme_colors{
+	width: 100%;
+}
+
+#table_theme_colors tr td{
+	padding: 5px;
+	box-sizing: border-box;
+}
+
+#table_theme_colors tr td:first-child{
+	width: 70%;
+}
+
+#table_theme_colors tr td button{
+	border: none;
+}
+
+#table_theme_colors tr td img{
+	width: 20px;
+}
+
+/*exit*/
+#exit{
+	position: relative;
+	width: calc(100% - 300px);
+}
+
+/*animations*/
+
+aside ul li a:hover{
+	border-bottom: 1px solid var(--semi-transparent);
+	
+}
+
+.send_general_btn:hover{
+	border: none;
+	color: white;
+	background-color: var(--principal-color);
+	cursor: pointer;
+
+}
+
+#confirm_user:hover{
+	background-color: white;
+	color: var(--principal-color);
+	cursor: pointer;
+}
+
+
+#table_theme_colors tr td button:hover{
+	cursor: pointer;
+}
+
+
+@media (max-width: 920px ){
+	/*aside*/
+	aside{
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1001;
+	}
+
+	aside ul{
+		position: relative;
+		display: flex;
+
+	}
+
+	#hamburguer_aside img{
+		display: block;
+		z-index: 1002;
+	}
+
+	#logo_bussines img{
+		width: 120px;
+	}
+
+	.container{
+		width: 100%;
+		left: 0;
+	}
+
+	#brand_img{
+		margin-left: 0;
+	}
+	.file_section_form{
+		margin-top: 30px;
+		width: 100%;
+	}
+
+	/*menu*/
+	.imgs_ours_sections{
+		flex-direction: column;	
+	}
+
+	/*generals*/
+	#general_form input[type="text"],
+	{
+		display: block;
+		width: 100%;
+	}
+	.general_content_sections{
+		flex-direction: column;
+	}
+
+	/*exit*/
+	#exit{
+		width: 100%;
+	}
+
+}

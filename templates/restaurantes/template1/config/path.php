@@ -1,0 +1,21 @@
+<?php
+	define("BD","./bd/");
+	define("CONFIG","./config/");
+	define("CONT","./controllers/");
+	define("CORE","./core/");
+	define("GENERALS","./generals/");
+	define("JQUERY","./core/jquery/");
+	define("FILES","./files/");
+	define("FONT","./font/");
+	define("GF","./general_functions/");
+	define("IMGS","./imgs/");
+	define("MODELS","./models/");
+	define("VIEWS","./views/");
+	define("VIEWSAP","./views_admin_panel/");
+	define("CSS","./views/css/");
+	define("JS","./views/js/");	
+	define("CSSAP","./views_admin_panel/css/");
+	define("JSAP","./views_admin_panel/js/");
+	define("AJAX","./views/js/ajax/");
+	define("AJAXAP","./views_admin_panel/js/ajax/");
+?>

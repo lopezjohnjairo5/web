@@ -1,0 +1,7 @@
+RewriteEngine On
+
+ErrorDocument 403 http://localhost/plantillas/plantillas_restaurantes/pl2/denied.php
+ErrorDocument 404 http://localhost/plantillas/plantillas_restaurantes/pl2/not_found.php
+
+#evita que se liste el contenido de las carpetas, generando error 403
+Options -Indexes
