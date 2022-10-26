@@ -50,24 +50,3 @@ btnEqual.addEventListener('click', () => {
 		inputOp.value = '';	
 	}
 });
-
-/*
-addition
-rest
-multiplication
-division
-raising
-nine
-eight
-seven
-six
-five
-four
-three
-two
-one
-zero
-erase
-opening parentheses
-closing parenthesis
-*/
