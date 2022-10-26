@@ -1,0 +1,102 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Cabin', sans-serif;
+}
+
+:root{
+	--background-color : #581845; 
+	--background-color-cards : #900C3F; 
+	--background-color-input : #A11D4F; 
+	--font-title-color : #FFC300; 
+	--shadown : #111;
+	--result-color: #FFF;
+}
+
+h1,h2,h3{
+	color: var(--font-title-color);
+	margin-bottom: 30px;
+	border-bottom: 1px solid var(--font-title-color);
+	text-transform: uppercase;
+}
+
+
+.cards{
+	padding: 50px;
+	box-sizing: border-box;
+	box-shadow: 0 0 10px var(--shadown);
+	border-radius: 5px;
+}
+
+span, key-code{
+	color: var(--result-color);
+}
+
+#key-code{
+	border: none;
+	font-size: 0.8em;
+}
+
+#vigenere-settings{
+	display: flex;
+	flex-direction: row;
+}
+
+#key-code-label, #key-code{
+	width: 50%;
+}
+
+input{
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	font-size: 1.2em;
+	background-color: transparent;
+	color: var(--result-color);
+	border: none;
+	border-bottom: 1px solid var(--result-color);
+}
+
+#container{
+	width: 100%;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--background-color );
+}
+
+#user-section{
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	margin: 10px 0;
+	background-color: var(--background-color-cards);
+}
+
+#content{
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	grid-column-gap: 10px;
+	text-align: center;
+	width: 40%;
+	height: 50%;
+}
+
+#content div{
+	width: 100%;
+	margin: 10px 0;
+	background-color: var(--background-color-cards);
+}
+
+@media (max-width: 600px){
+	#user-section{
+		width: 80%;
+	}
+	#content{
+		width: 80%;
+		grid-template-columns: repeat(1, 1fr);
+	}	
+}
