@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--fonts-->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@500&display=swap" rel="stylesheet"> 
+	<!--fonts-->
+	<link rel="stylesheet" href="./main.css">
+	<title>Document</title>
+</head>
+<body id="container">
+	<section id="content">
+		<h3 id="final-pass">PASSWORD</h3>
+		<br>
+		<div id="content-settings">		
+			<label for="size-pass">
+				<span>Longitud</span>
+				<input id="size-pass" type="range" min="6" max="16" value="8">
+				<span id="indicator-len">8</span>
+			</label>
+			<label for="upper-lower-pass">
+				<input id="upper-lower-pass" type="checkbox">
+				<span>Incluir mayusculas y minusculas</span>
+			</label>
+			<label for="special-keys-pass">
+				<input id="special-keys-pass" type="checkbox">
+				<span>Incluir caracteres especiales</span>
+			</label>
+			<label for="nums-pass">
+				<input id="nums-pass" type="checkbox">
+				<span>Incluir números</span>
+			</label>
+		</div>
+		<button id="btn-generar"><span id="text-btn">generar</span> ></button>
+	</section>
+	<script src="./main.js"></script>
+</body>
+</html>

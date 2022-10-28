@@ -1,0 +1,99 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: 'Mukta', sans-serif;
+}
+
+:root{
+	--btn-color: rgba(131,58,180,1);
+	--deg-first-color: rgba(131,58,180,1);
+	--deg-second-color: rgba(253,29,29,1);
+	--deg-third-color: rgba(252,176,69,1);
+}
+
+#container{
+	height: 70vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: rgb(131,58,180);
+	background: -moz-linear-gradient(90deg, var(--deg-first-color) 0%, var(--deg-second-color) 50%, var(--deg-third-color) 100%);
+	background: -webkit-linear-gradient(90deg, var(--deg-first-color) 0%, var(--deg-second-color) 50%, var(--deg-third-color) 100%);
+	background: linear-gradient(90deg, var(--deg-first-color) 0%, var(--deg-second-color) 50%, var(--deg-third-color) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#833ab4",endColorstr="#fcb045",GradientType=1); 
+}
+
+#content{
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, .7);
+	color: white;
+	padding: 20px;
+	box-sizing: border-box;
+	box-shadow: 0 0 5px rgb(0,0,0);
+}
+
+#content-settings{
+	display: flex;
+	flex-direction: column;
+}
+
+#final-pass{
+	width: 100%;
+	font-size: 2em;
+	margin: 10px 0;
+	text-align: center;
+	/*background: linear-gradient(yellow,red);*/
+	background: linear-gradient(90deg, var(--deg-first-color) 0%, var(--deg-second-color) 50%, var(--deg-third-color) 100%);
+	-webkit-background-clip: text;
+  	color: transparent;  
+  	/*text-shadow: 3px 2px 4px rgba(0, 0, 0, .5);*/
+}
+
+#btn-generar{
+	position: relative;
+	width: 50px;
+	height: 50px;
+	color: var(--btn-color);
+	font-size: 1.2em;
+	margin: 10px 0;
+	background-color: transparent;
+	border: 2px solid var(--btn-color);
+	border-radius: 40px;
+	transition: all ease-in-out .3s;
+	overflow: hidden;
+}
+
+#text-btn{
+	position: absolute;
+	opacity: 0;
+	left: -200%;
+	right: 0;
+	top: 0;
+	transition: all ease-in-out .3s;
+}
+
+/*animations*/
+
+#btn-generar:hover{
+	width: 140px;
+	cursor: pointer;
+}
+
+#btn-generar:hover #text-btn{
+	display: inline-block;
+	left: 0;
+	opacity: 1;
+	position: relative;
+}
+
+
+@media (max-width: 900px){
+	#content{
+		width: 70%;
+	}
+}
