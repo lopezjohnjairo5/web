@@ -13,7 +13,7 @@
                 $countRows = 13;
                 for ($i=0; $i < $countRows; $i++) { 
                     for ($j=0; $j < $countRows; $j++) { 
-                        echo "<div class='cells' id='{$i}-{$j}'>0</div>";
+                        echo "<div class='cells' id='{$i}-{$j}' data-fixed='0'>0</div>";
                     }
                 }
             ?>

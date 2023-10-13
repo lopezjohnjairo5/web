@@ -9,6 +9,7 @@ let countCellPainted = 0,
     countRows = 13,
     countColumns = 13,
     numberElements = 15, // indica la cantidad de palabras que estaran disponibles para buscar
+    searchedWord = "", // palabra que esta seleccionando el usuario en el tablero
     directionW = ["v","h","dd"], // direcciones posibles para poner las palabras, v=vertical, h=horizontal, dd= diagonal derecha, di=diagonal izquierda
     cellsGroup = document.getElementsByClassName('cells'),
     listWordsSpace = document.getElementById("list-words");
@@ -49,20 +50,25 @@ const selectNewColor = () => {
 
 const cleanBoardGame = () => {
     /*
-    funcion encargada de limpiar el tablero de juego
+    funcion encargada de limpiar el tablero de juego,
+    si se requiere limpiar por completo el tablero,
+    PRIMERO PONER TODOS LOS DATA-FIXED DE LAS CELDAS A CERO.
     */
 
     // recorremos todas las celdas y las limpiamos una por una
     for (const it of cellsGroup) {
-        console.log(it);
-        it.style.background = "white";
-        it.style.color = "black";
+        console.log(`it.dataset.fixed: ${it.dataset.fixed}`);
+        // si la celda tiene data-fixed = 1 no la tocamos.
+        if (it.dataset.fixed != 1) {
+            it.style.background = "white";
+            it.style.color = "black";
+        }
     }
     // reiniciando variables de juego
     countCellPainted = 0;
     lastClickedElement = 0;
     direction = "";
-
+    searchedWord = "";
     backgroundColor = selectNewColor();
 }; 
 
@@ -259,6 +265,16 @@ const putListwordsInBoard = () => {
     }
 };
 
+const investword = (word) => {
+    /*
+    funcion encargada de invertir una palabra pasada por parametro
+    */
+    newW = word.split("").reverse().join(""); //convierte en array el texto, lo invierte, lo vuelve a unir como string
+    console.log(`word: ${word} ; newW: ${newW}`);
+
+    return newW
+};
+
 const fillMatrizWords = () => {
     /*
     metodo encargado de rellenar la matriz de ceros con palabras
@@ -268,7 +284,9 @@ const fillMatrizWords = () => {
 
         index = Math.floor(Math.random() * (listWords.length - 0) + 0);
         indexD = Math.floor(Math.random() * (directionW.length - 0) + 0);
+        orderWord = Math.floor(Math.random() * (3 - 0) + 0); // valor aleatorio utilizado para determinar si la palabra se pondrá invertida o normal en el tablero
         newWord = listWords[index]; // seleccionamos una palabra aleatoriamente de la lista
+
         dw = directionW[indexD]; // seleccionamos una direccion aleatoria para la palabra, vertical, horizontal, diagonal
         //dw ="di";
         console.log(`index: ${index} ; newWord: ${newWord} ; direction : ${dw}`);
@@ -294,14 +312,48 @@ const fillMatrizWords = () => {
 
             // si el resultado es true, entonces ponemos la palabra en la posicion indicada y la añadimos al listado
             if (resultV) {
-                putWordMatriz(posR, posC, newWord, dw); // ponemos la palabra en la matriz
                 listWords.splice(index, 1); // eliminamos la palabra del array original, para que no se repita al buscarla
                 matrizGameWords.push(newWord); // añadimos la palabra al listado
+                if (orderWord == 2) {
+                    newWord = investword(newWord); //invirtiendo palabra
+                }
+                putWordMatriz(posR, posC, newWord, dw); // ponemos la palabra en la matriz
                 console.log(matrizGame);
             }
         }
     }
     
+};
+
+const putDataValueToCells = (dataValue = 1) => {
+    /*
+    funcion encargada de escanear el tablero de juego
+    celda a celda, buscando las que tengan color de fondo
+    diferente a blanco, para ponerles un dataFixed = 1 que 
+    será el que evitará que se limpien las celdas correctas
+    */
+
+    for (const it of cellsGroup) {
+        styleE = getComputedStyle(it).background; // obtenemos el color de fondo de cada celda, si es distinto a blanco, entonces...
+        if (styleE != "white" && styleE != "rgb(255, 255, 255)") {
+            it.dataset.fixed = dataValue;
+        }
+    }
+
+};
+
+const searchedWordInList = (word) => {
+    /*
+    funcion encargada de buscar y eliminar en el 
+    listado de palabras la palabra que el usuario
+    esta formando.
+    */
+    resultSW = matrizGameWords.indexOf(word);
+    if (resultSW != -1) {
+        matrizGameWords.splice(resultSW,1);
+        putDataValueToCells(); // poniendo valor al data fixed para evitar que se limpien las palabras correctas
+    }
+    putListwordsInBoard(); // refrescando el listado de palabras 
 };
 
 const main = () => {
@@ -320,6 +372,7 @@ const main = () => {
 
     // llenando el listado de palabras a buscar
     putListwordsInBoard();
+
 };
 
 // escuchando los clicks del mouse sobre las casillas del tablero
@@ -335,8 +388,14 @@ document.addEventListener("mousedown", (e) => {
             elementClicket.style.color = "white";
             countCellPainted++; //incrementamos la cantidad de celdas pintadas
             lastClickedElement = e.target.id;
+            
+            searchedWord += e.target.innerHTML; //formando la palabra que el usuario esta seleccionando letra a letra
+            searchedWordInList(searchedWord); //buscamos la palabra que forma el usuario, si esta en el listado, eliminamos la palabra de la lista
+            console.log(`searchedWord = ${searchedWord}`);
+
         }
     };
+
 
 });
 
@@ -346,6 +405,10 @@ main();
 /*
 Falta:
 - validar que la palabra encontrada este en la lista y añadir las celdas que ya estan listas a un array que
-deberá ser verificado antes de limpiar el tablero, de esta manera siempre se mantendrán pintadas las palabras previamente encontradas
-
+deberá ser verificado antes de limpiar el tablero, de esta manera siempre se mantendrán pintadas las palabras previamente encontradas - LISTO
+- Agregar la posibilidad de seleccionar palabras en diagonal
+- Corregir: cuando se cambia de direccion de seleccion de celda, se requiere un doble clic para pintar la nueva celda, cambiar esto.
+- poner cuadro de puntaje, btns de restablecer y nuevo juego, musica de fondo y al encontrar palabra
+- poner en mayusculas las palabras, antes de agregarlas tanto a la matriz como al listado de palabras.
+- OPCIONAL: poner colores de fondo rgba para las celdas a fin de mezclar el color de fondo
 */
