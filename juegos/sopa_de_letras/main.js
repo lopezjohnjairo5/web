@@ -1,5 +1,6 @@
 let countCellPainted = 0,
     lastClickedElement = 0,
+    listLettersCellsId = [], // array utilizado para llevar un conteo de los ids de las celdas seleccionadas por el usuario, este será usado para saber cuales animar al encontrar una palabra
     direction = "",
     max = 200,
     min = 50,
@@ -10,6 +11,7 @@ let countCellPainted = 0,
     countColumns = 16,
     numberElements = 25, // indica la cantidad de palabras que estaran disponibles para buscar
     searchedWord = "", // palabra que esta seleccionando el usuario en el tablero
+    resultSWL = false, // trigger para determinar si se debe o no animar la palabra encontrada por el usuario
     //directionW = ["v","h","dd"], // direcciones posibles para poner las palabras, v=vertical, h=horizontal, dd= diagonal derecha, di=diagonal izquierda
     directionW = ["v","h"], // direcciones posibles para poner las palabras, v=vertical, h=horizontal, dd= diagonal derecha, di=diagonal izquierda
     cellsGroup = document.getElementsByClassName('cells'),
@@ -71,6 +73,10 @@ const cleanBoardGame = () => {
     direction = "";
     searchedWord = "";
     backgroundColor = selectNewColor();
+    
+    // desactiva el pointermove
+    clickActive = false;
+    document.removeEventListener("pointerover", activeChangeColor);
 }; 
 
 const verifyPositionClicked = (lastE, newE) => {
@@ -103,7 +109,7 @@ const verifyPositionClicked = (lastE, newE) => {
         direction = "h";
         return true;
     }
-    //console.log("false");
+
     cleanBoardGame();
     return false;
 }
@@ -129,7 +135,7 @@ const verifySpaceWord = (posR, posC, word, direction) => {
             }
     
             // si la longitud del array de palabras es igual a la longitud de la palabra quiere decir que si estan libres todos los campos
-            console.log(`sizeArrayW.length: ${sizeArrayW.length} ; lenWord.length: ${lenWord}`);
+            console.log(`sizeArrayW.length: ${sizeArrayW.length} ; palabra: ${matrizGame[posR]}; lenWord.length: ${lenWord}`);
             resultReturn = sizeArrayW.length == lenWord ? true : false;
             break;
 
@@ -143,7 +149,7 @@ const verifySpaceWord = (posR, posC, word, direction) => {
             }
     
             // si la longitud del array de palabras es igual a la longitud de la palabra quiere decir que si estan libres todos los campos
-            console.log(`sizeArrayW.length: ${sizeArrayW.length} ; lenWord.length: ${lenWord}`);
+            console.log(`sizeArrayW.length: ${sizeArrayW.length} ; palabra: ${matrizGame[posC]} ; lenWord.length: ${lenWord}`);
             resultReturn = sizeArrayW.length == lenWord ? true : false;
             break;    
         
@@ -287,6 +293,7 @@ const fillMatrizWords = () => {
         indexD = Math.floor(Math.random() * (directionW.length - 0) + 0);
         orderWord = Math.floor(Math.random() * (3 - 0) + 0); // valor aleatorio utilizado para determinar si la palabra se pondrá invertida o normal en el tablero
         newWord = listWords[index].toUpperCase(); // seleccionamos una palabra aleatoriamente de la lista
+        originalWord = newWord; // almacenamos la palabra original antes de invertirla
 
         dw = directionW[indexD]; // seleccionamos una direccion aleatoria para la palabra, vertical, horizontal, diagonal
         //dw ="di";
@@ -308,16 +315,17 @@ const fillMatrizWords = () => {
         // si la nueva palabra a agregar NO esta en el array de palabras, entonces la incluimos e incluimos la palabra
         if (!matrizGameWords.includes(newWord)) {
             // verificamos que la posicion en la que se pondrá la palabra sea correcta, tenga ceros en la matriz o la misma letra
+            if (orderWord == 2) {
+                newWord = investword(newWord); //invirtiendo palabra
+            }
             resultV = verifySpaceWord(posR, posC, newWord, dw);
             console.log(`resultV: ${resultV}`);
 
             // si el resultado es true, entonces ponemos la palabra en la posicion indicada y la añadimos al listado
             if (resultV) {
                 listWords.splice(index, 1); // eliminamos la palabra del array original, para que no se repita al buscarla
-                matrizGameWords.push(newWord); // añadimos la palabra al listado
-                if (orderWord == 2) {
-                    newWord = investword(newWord); //invirtiendo palabra
-                }
+                matrizGameWords.push(originalWord); // añadimos la palabra al listado
+                
                 putWordMatriz(posR, posC, newWord, dw); // ponemos la palabra en la matriz
                 console.log(matrizGame);
             }
@@ -349,12 +357,60 @@ const searchedWordInList = (word) => {
     listado de palabras la palabra que el usuario
     esta formando.
     */
-    resultSW = matrizGameWords.indexOf(word);
+    resultSearch = false;
+    
+    resultSW = matrizGameWords.indexOf(word); // palabra en orden
+    resultInv = matrizGameWords.indexOf(investword(word)); // palabra invertida
     if (resultSW != -1) {
         matrizGameWords.splice(resultSW,1);
         putDataValueToCells(); // poniendo valor al data fixed para evitar que se limpien las palabras correctas
+        resultSearch = true;
+    } else if (resultInv != -1){
+        matrizGameWords.splice(resultInv,1);
+        putDataValueToCells(); // poniendo valor al data fixed para evitar que se limpien las palabras correctas
+        resultSearch = true;
     }
+
     putListwordsInBoard(); // refrescando el listado de palabras 
+
+    return resultSearch;
+};
+
+// metodos de animaciones
+
+const addAnimationClass = (word) => {
+    /*
+    añade una clase de animacion de css
+    */
+    const newAddPromise = new Promise((resolve, reject) => {
+        word.classList.add("found-animation");
+    });
+    return newAddPromise;
+};
+
+const removeAnimationClass = (word) => {
+    /*
+    remueve una clase de animacion de css
+    */
+    const newRemovePromise = new Promise((resolve, reject) => {
+        word.classList.remove("found-animation");
+    });
+    
+    return newAddPromise;
+};
+
+const animateFoundWord = (listCellsId) => {
+    /*
+    funcion encargada de animar las celdas al encontrar una palabra
+    correcta
+    */
+    for (let id = 0; id < listCellsId.length; id++) {
+        let element = document.getElementById(listCellsId[id]);
+        addAnimationClass(element).then(() => removeAnimationClass(element));
+    }
+
+    //listLettersCellsId = [];
+    
 };
 
 const main = () => {
@@ -366,7 +422,7 @@ const main = () => {
     fillMatrizWords();
 
     // llenando los campos restantes con letras al azar
-    putAleatoryLetters();
+    //putAleatoryLetters();
 
     // llenando el tablero DOM
     putInBoard(); 
@@ -387,6 +443,8 @@ const activeChangeColor = (e) => {
     // si se dio clic sobre una celda del tablero, entonces...
     if (classElementClick == "cells") {
         elementClicket = document.getElementById(e.target.id); // indica el ID del elemento al cual se le dió click
+        listLettersCellsId.push(e.target.id); // array con los ids de las celdas selecionadas usado para animar la palabra encontrada
+        
         if (countCellPainted == 0 || verifyPositionClicked(lastClickedElement,e.target.id)) {
 
             elementClicket.style.background = backgroundColor;            
@@ -395,13 +453,20 @@ const activeChangeColor = (e) => {
             lastClickedElement = e.target.id;
             
             searchedWord += e.target.innerHTML; //formando la palabra que el usuario esta seleccionando letra a letra
-            searchedWordInList(searchedWord); //buscamos la palabra que forma el usuario, si esta en el listado, eliminamos la palabra de la lista
+            resultSWL = searchedWordInList(searchedWord); //buscamos la palabra que forma el usuario, si esta en el listado, eliminamos la palabra de la lista
+            
+            //controlando la ANIMACION -- aun NO funciona
+            /*if (resultSWL) {
+                animateFoundWord(listLettersCellsId);
+            }*/
+            
             console.log(`searchedWord = ${searchedWord}`);
+        } else {
+            listLettersCellsId = []; // array con los ids de las celdas selecionadas usado para animar la palabra encontrada
         }
     };
 
 };
-
 
 // escuchando los clicks del mouse sobre las casillas del tablero
 document.addEventListener("pointerdown", (e) => {
@@ -412,13 +477,12 @@ document.addEventListener("pointerdown", (e) => {
     */
     
     clickActive = !clickActive;
-    if (clickActive) {
-        activeChangeColor(e);
-        document.addEventListener("pointerover", activeChangeColor);
-    } else {
-        activeChangeColor(e);
-        document.addEventListener("pointerover", activeChangeColor);
+    activeChangeColor(e);
+    document.addEventListener("pointerover", activeChangeColor);
+
+    if (!clickActive) {
         document.removeEventListener("pointerover", activeChangeColor);
+        console.log("aqui");
     }
 });
 
@@ -434,7 +498,8 @@ Falta:
 - poner cuadro de puntaje, btns de restablecer y nuevo juego, musica de fondo y al encontrar palabra
 - poner pops de ganar(al quedarse sin palabras) y perder (al acabarse el tiempo)
 - poner en mayusculas las palabras, antes de agregarlas tanto a la matriz como al listado de palabras. -- listo
-- poner las celdas rectangulares ya que al ser circulares hay problemas al pintarlas moviendo el mouse.
+- poner las celdas rectangulares ya que al ser circulares hay problemas al pintarlas moviendo el mouse. -- listo
+- verificar la palabra seleccionada tanto al derecho como al reves para los casos en los que el usuario la selecciona al contrario
 - OPCIONAL: 
     - poner colores de fondo rgba para las celdas a fin de mezclar el color de fondo o validar su ya tiene color de fondo, en ese caso tomar 
     el color de fondo y poner un degrade del nuevo y viejo color
