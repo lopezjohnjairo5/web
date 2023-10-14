@@ -6,14 +6,15 @@ let countCellPainted = 0,
     backgroundColor = "rgb(245,200,145)",
     matrizGame = [],
     matrizGameWords = [],
-    countRows = 13,
-    countColumns = 13,
-    numberElements = 15, // indica la cantidad de palabras que estaran disponibles para buscar
+    countRows = 16,
+    countColumns = 16,
+    numberElements = 25, // indica la cantidad de palabras que estaran disponibles para buscar
     searchedWord = "", // palabra que esta seleccionando el usuario en el tablero
-    directionW = ["v","h","dd"], // direcciones posibles para poner las palabras, v=vertical, h=horizontal, dd= diagonal derecha, di=diagonal izquierda
+    //directionW = ["v","h","dd"], // direcciones posibles para poner las palabras, v=vertical, h=horizontal, dd= diagonal derecha, di=diagonal izquierda
+    directionW = ["v","h"], // direcciones posibles para poner las palabras, v=vertical, h=horizontal, dd= diagonal derecha, di=diagonal izquierda
     cellsGroup = document.getElementsByClassName('cells'),
-    listWordsSpace = document.getElementById("list-words");
-
+    listWordsSpace = document.getElementById("list-words"),
+    clickActive = false; // variable trigger / gatillo, indica cuando se crea o elimina un listener
 
 const fillMatrizZeros = () => {
     /*
@@ -285,7 +286,7 @@ const fillMatrizWords = () => {
         index = Math.floor(Math.random() * (listWords.length - 0) + 0);
         indexD = Math.floor(Math.random() * (directionW.length - 0) + 0);
         orderWord = Math.floor(Math.random() * (3 - 0) + 0); // valor aleatorio utilizado para determinar si la palabra se pondrá invertida o normal en el tablero
-        newWord = listWords[index]; // seleccionamos una palabra aleatoriamente de la lista
+        newWord = listWords[index].toUpperCase(); // seleccionamos una palabra aleatoriamente de la lista
 
         dw = directionW[indexD]; // seleccionamos una direccion aleatoria para la palabra, vertical, horizontal, diagonal
         //dw ="di";
@@ -375,8 +376,11 @@ const main = () => {
 
 };
 
-// escuchando los clicks del mouse sobre las casillas del tablero
-document.addEventListener("mousedown", (e) => {
+const activeChangeColor = (e) => {
+    /*
+    funcion encargada de de pintar las celdas del tablero
+    al ser llamada mediante los Listeners
+    */
     classElementClick = e.target.classList; // clase del elemento al cual se le dio clic
 
     // pintando celdas del tablero
@@ -384,7 +388,8 @@ document.addEventListener("mousedown", (e) => {
     if (classElementClick == "cells") {
         elementClicket = document.getElementById(e.target.id); // indica el ID del elemento al cual se le dió click
         if (countCellPainted == 0 || verifyPositionClicked(lastClickedElement,e.target.id)) {
-            elementClicket.style.background = backgroundColor;
+
+            elementClicket.style.background = backgroundColor;            
             elementClicket.style.color = "white";
             countCellPainted++; //incrementamos la cantidad de celdas pintadas
             lastClickedElement = e.target.id;
@@ -392,11 +397,29 @@ document.addEventListener("mousedown", (e) => {
             searchedWord += e.target.innerHTML; //formando la palabra que el usuario esta seleccionando letra a letra
             searchedWordInList(searchedWord); //buscamos la palabra que forma el usuario, si esta en el listado, eliminamos la palabra de la lista
             console.log(`searchedWord = ${searchedWord}`);
-
         }
     };
 
+};
 
+
+// escuchando los clicks del mouse sobre las casillas del tablero
+document.addEventListener("pointerdown", (e) => {
+    /*
+    Funcion listener principal, encargada de detectar el click del mouse
+    y de el movimiento del puntero, asi como de la creacion y eliminacion
+    de nuevos listeners
+    */
+    
+    clickActive = !clickActive;
+    if (clickActive) {
+        activeChangeColor(e);
+        document.addEventListener("pointerover", activeChangeColor);
+    } else {
+        activeChangeColor(e);
+        document.addEventListener("pointerover", activeChangeColor);
+        document.removeEventListener("pointerover", activeChangeColor);
+    }
 });
 
 // ejecutando funcion principal del juego
@@ -405,10 +428,19 @@ main();
 /*
 Falta:
 - validar que la palabra encontrada este en la lista y añadir las celdas que ya estan listas a un array que
-deberá ser verificado antes de limpiar el tablero, de esta manera siempre se mantendrán pintadas las palabras previamente encontradas - LISTO
+    deberá ser verificado antes de limpiar el tablero, de esta manera siempre se mantendrán pintadas las palabras previamente encontradas - LISTO
 - Agregar la posibilidad de seleccionar palabras en diagonal
-- Corregir: cuando se cambia de direccion de seleccion de celda, se requiere un doble clic para pintar la nueva celda, cambiar esto.
+- Corregir: cuando se cambia de direccion de seleccion de celda, se requiere un doble clic para pintar la nueva celda, cambiar esto. -- listo
 - poner cuadro de puntaje, btns de restablecer y nuevo juego, musica de fondo y al encontrar palabra
-- poner en mayusculas las palabras, antes de agregarlas tanto a la matriz como al listado de palabras.
-- OPCIONAL: poner colores de fondo rgba para las celdas a fin de mezclar el color de fondo
+- poner pops de ganar(al quedarse sin palabras) y perder (al acabarse el tiempo)
+- poner en mayusculas las palabras, antes de agregarlas tanto a la matriz como al listado de palabras. -- listo
+- poner las celdas rectangulares ya que al ser circulares hay problemas al pintarlas moviendo el mouse.
+- OPCIONAL: 
+    - poner colores de fondo rgba para las celdas a fin de mezclar el color de fondo o validar su ya tiene color de fondo, en ese caso tomar 
+    el color de fondo y poner un degrade del nuevo y viejo color
+    - se desactivaron las diagonales, mientras se crea la validacion de estas.
+    - poner animacion al encontrar palabra algo asi como girar las letras y su contenido o algo por el estilo
+- Nota:
+    - se puede calcular el puntaje, dependiendo de la longitud de las palabras, es decir dar un puntaje por letra
+    acertada y sumarlo con el tiempo restante, de esta manera cada sopa de letras dará como resultado un puntaje maximo diferente
 */
