@@ -1,29 +1,45 @@
-let btnPause = document.getElementById("btn-pause"),
-    btnNew = document.getElementById("btn-new"),
-    btnConfig = document.getElementById("btn-config"),
-    popNewGame = document.getElementById('pop-new-game'),// pops
-    popPause = document.getElementById('pop-pause'),
-    popConfig = document.getElementById('pop-config'),
-    closePopNew = document.getElementById('close-pop-new-game');
+const openPops = (id) => {
+    /*
+    funcion encargada de mostrar el pop indicado
+    */
+    document.getElementById(id).style.display = "flex"; // abrimos el pop correspondiente
+    /*
+    PONER AQUI LAS FUNCIONES NECESARIAS PARA PAUSAR LA EJECUCION DEL JUEGO YA QUE CON EL POP ENCIMA
+    SE DEBE DESHABILITAR EL TIEMPO Y DEMAS.
+    */
+    clearInterval(chrono);
+
+};
+
+const closePops = (pop) => {
+    /*
+    funcion encargada de ocultar el pop indicado
+    */
+    document.getElementById(pop).style.display = "none";
+
+    /*
+    PONER AQUI LAS FUNCIONES NECESARIAS PARA REANUDAR LA EJECUCION DEL JUEGO YA QUE AL QUITAR EL POP DE ENCIMA
+    SE DEBE CONTINUAR EL JUEGO.
+    */
+    chronometer();
+};
 
 // ABRIR POPS
-
-btnPause.addEventListener('click', () => {
-    /*funcion encargada de abrir el pop de pausa*/
-});
-
-btnNew.addEventListener('click', () => {
-    /*funcion encargada de abrir el pop de nuevo juego*/
-    popNewGame.style.display = "flex";
-});
-
-btnConfig.addEventListener('click', () => {
-    /*funcion encargada de abrir el pop de configuracion para audio*/
-});
+for (const it of btnsMenu) {
+    it.addEventListener('click',(e) =>{
+        e.preventDefault();
+        idElement = e.target.closest(".btns-menu").id; // ubicamos el ID del btn, buscando el elemento mas cercano con la clase btns-menu
+        id = idElement.replace("btn","pop"); // reemplazamos btn por pop en el id pasado por parametro
+        openPops(id); // pasamos el id del elemento clicado
+    });
+}
 
 // CERRAR POPS
-
-closePopNew.addEventListener('click', (e) => {
-    e.preventDefault();
-    popNewGame.style.display = "none";
-});
+for (const it of btnClosePops) {
+    it.addEventListener('click',(e) =>{
+        e.preventDefault();
+        idElement = e.target.id.replace("close-",""); // quitamos la palabra close del id obtenido para poder cerrar el pop padre de la X
+        console.log(`Clic en: ${e.target}`);
+        closePops(idElement);
+    });
+}

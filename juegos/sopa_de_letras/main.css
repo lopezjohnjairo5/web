@@ -43,6 +43,13 @@ body{
     justify-content: space-around;   
 }
 
+.content-info-menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 #options{
     justify-content: flex-end;
 }
@@ -136,6 +143,10 @@ body{
     box-sizing: border-box;
 }
 
+#pop-pause,
+#pop-config,
+#pop-win,
+#pop-lose,
 #pop-new-game{
     display: none;
 }
@@ -215,10 +226,11 @@ body{
         grid-template-columns: repeat(4,1fr);
     }
 
+    /*
     #pop-new-game{
         display: none;
     }
-    /*.pops{
+    .pops{
         display: none;
     }*/
 }

@@ -19,13 +19,19 @@
     <div id="container-game">
         <div id="menu">
             <div id="info-menu">
-                <span id="time">Tiempo:</span>
-                <span id="score">Puntaje:</span>
+                <div id="time-content" class="content-info-menu">
+                    <span class="material-symbols-outlined">timer</span>    
+                    <span id="time">Tiempo:</span>
+                </div>
+                <div id="score-content" class="content-info-menu">
+                    <span class="material-symbols-outlined">sports_score</span>
+                    <span id="score">0</span>
+                </div>
             </div>
             <div id="options">
-                <button id="btn-pause" title="Pausa"><span class="material-symbols-outlined">pause_presentation</span></button>
-                <button id="btn-new" title="Nuevo juego"><span class="material-symbols-outlined">library_add</span></button>
-                <button id="btn-config" title="Configuracion"><span class="material-symbols-outlined">settings_applications</span></button>
+                <button class="btns-menu" id="btn-pause" title="Pausa"><span class="material-symbols-outlined">pause_presentation</span></button>
+                <button class="btns-menu" id="btn-new-game" title="Nuevo juego"><span class="material-symbols-outlined">library_add</span></button>
+                <button class="btns-menu" id="btn-config" title="Configuracion"><span class="material-symbols-outlined">settings_applications</span></button>
             </div>
         </div>
         <div id="game">
@@ -56,22 +62,42 @@
             <br>
             <button id="btn-pop-new-game" class="btns-pops">Nuevo juego</button>
         </section>
-        <section id="pop-pause">
-            utilizado para entorpecer la vista del tablero y que el user no haga trampa
+        <section id="pop-pause" class="pops">
+            <a href="" class="close-pop" id="close-pop-pause">X</a>
+            <h2>En pausa.</h2>
+            <br>
         </section>
-        <section id="pop-config">
-            poner aqui los controles de audio 
+        <section id="pop-config" class="pops">
+            <a href="" class="close-pop" id="close-pop-config">X</a>
+            <h2>Configuracion</h2>
+            <br> 
+            <label for="background-sound">
+                <span>Sonidos</span>
+                <input type="range" min="0" max="100" step="10" name="background-sound" id="background-sound">
+            </label>
+            <label for="background-music">
+                <span>Música</span>
+                <input type="range" min="0" max="100" step="10" name="background-music" id="background-music">
+            </label>
         </section>
-        <section id="pop-win">
-            dar puntaje final y preguntar si quiere un nuevo juego
+        <section id="pop-win" class="pops">
+            <!--<a href="" class="close-pop" id="close-pop-win">X</a>-->
+            <h2>¡Ganaste!</h2>
+            <br> 
+            <span>puntaje:</span>
+            <button>Nuevo juego</button>
         </section>
-        <section id="pop-lose">
-            dar puntaje final y preguntar si quiere un nuevo juego
+        <section id="pop-lose" class="pops">
+            <!--<a href="" class="close-pop" id="close-pop-lose">X</a>-->
+            <h2>¡Perdiste!</h2>
+            <br>
+            <button>Nuevo juego</button>
         </section>
     </div>
-
+    <script src="generals.js"></script>
     <script src="listWords.js"></script>
     <script src="menu-btns.js"></script>
     <script src="main.js"></script>
+    <script src="timer.js"></script>
 </body>
 </html>
