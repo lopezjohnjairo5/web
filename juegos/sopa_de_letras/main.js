@@ -402,7 +402,7 @@ const main = () => {
     fillMatrizWords();
 
     // llenando los campos restantes con letras al azar
-    //putAleatoryLetters();
+    putAleatoryLetters();
 
     // llenando el tablero DOM
     putInBoard(); 
@@ -435,10 +435,19 @@ const activeChangeColor = (e) => {
             searchedWord += e.target.innerHTML; //formando la palabra que el usuario esta seleccionando letra a letra
             resultSWL = searchedWordInList(searchedWord); //buscamos la palabra que forma el usuario, si esta en el listado, eliminamos la palabra de la lista
             
-            //controlando la ANIMACION -- aun NO funciona
-            /*if (resultSWL) {
-                animateFoundWord(listLettersCellsId);
-            }*/
+            //calculando el score o puntaje segun la longitud de la palabra
+            if (resultSWL) {
+                //animateFoundWord(listLettersCellsId); // NO FUNCIONA
+                calculateScore(searchedWord.length);
+                console.log(`newScore : ${newScore}`);
+                
+                //verificamos si aun existen palabras en el listado, en caso contrario mostramos el pop win
+                if (matrizGameWords.length < 1) {
+                    console.log(`matrizGameWords : ${matrizGameWords}`);
+                    // llamar aqui al pop de perder
+                    openPops("pop-win");
+                }
+            }
             
             console.log(`searchedWord = ${searchedWord}`);
         } else {
@@ -466,8 +475,18 @@ gameBoard.addEventListener("pointerdown", (e) => {
     }
 });
 
-// ejecutando funcion principal del juego
-main();
+// ejecutando funcion principal del juego al presionar uno de los btns de nuevo juego
+for (const btnNewGame of btnsNewGame) {
+    btnNewGame.addEventListener('click', (e) => {
+        e.preventDefault();
+        restartBoardGame(); // restablecemos las variables del juego antes de comenzar
+        idPopParent = e.target.closest('.pops').id;
+        clearInterval(chrono);
+        closePops(idPopParent); // cerramos el pop padre del btn para poder empezar el juego
+        score.innerHTML = newScore; // restablecemos el puntaje principal 
+        main(); //llamamos a la funcion principal de juego
+    });
+}
 
 /*
 Falta:

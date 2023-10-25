@@ -3,11 +3,16 @@ const openPops = (id) => {
     funcion encargada de mostrar el pop indicado
     */
     document.getElementById(id).style.display = "flex"; // abrimos el pop correspondiente
+    if (id == "pop-new-game") {
+        document.getElementById('close-pop-new-game').style.display = 'flex';
+    }
     /*
     PONER AQUI LAS FUNCIONES NECESARIAS PARA PAUSAR LA EJECUCION DEL JUEGO YA QUE CON EL POP ENCIMA
     SE DEBE DESHABILITAR EL TIEMPO Y DEMAS.
     */
     clearInterval(chrono);
+    
+    //chronometerM.stop();
 
 };
 
@@ -21,7 +26,10 @@ const closePops = (pop) => {
     PONER AQUI LAS FUNCIONES NECESARIAS PARA REANUDAR LA EJECUCION DEL JUEGO YA QUE AL QUITAR EL POP DE ENCIMA
     SE DEBE CONTINUAR EL JUEGO.
     */
+    
     chronometer();
+    //chronometerM.start();
+    //chronometerM.reset();
 };
 
 // ABRIR POPS

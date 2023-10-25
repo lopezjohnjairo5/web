@@ -146,8 +146,15 @@ body{
 #pop-pause,
 #pop-config,
 #pop-win,
-#pop-lose,
+#pop-lose{
+    display: none;
+}
+
 #pop-new-game{
+    display: flex;
+}
+
+#close-pop-new-game{
     display: none;
 }
 

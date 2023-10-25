@@ -85,19 +85,20 @@
             <h2>¡Ganaste!</h2>
             <br> 
             <span>puntaje:</span>
-            <button>Nuevo juego</button>
+            <button class="btns-pops">Nuevo juego</button>
         </section>
         <section id="pop-lose" class="pops">
             <!--<a href="" class="close-pop" id="close-pop-lose">X</a>-->
             <h2>¡Perdiste!</h2>
             <br>
-            <button>Nuevo juego</button>
+            <button class="btns-pops">Nuevo juego</button>
         </section>
     </div>
     <script src="generals.js"></script>
     <script src="listWords.js"></script>
     <script src="menu-btns.js"></script>
-    <script src="main.js"></script>
+    <script src="score.js"></script>
     <script src="timer.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
