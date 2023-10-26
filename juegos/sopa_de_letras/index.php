@@ -99,6 +99,7 @@
     <script src="menu-btns.js"></script>
     <script src="score.js"></script>
     <script src="timer.js"></script>
+    <script src="animations.js"></script>
     <script src="main.js"></script>
 </body>
 </html>

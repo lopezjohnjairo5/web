@@ -356,43 +356,6 @@ const searchedWordInList = (word) => {
     return resultSearch;
 };
 
-// metodos de animaciones
-
-const addAnimationClass = (word) => {
-    /*
-    añade una clase de animacion de css
-    */
-    const newAddPromise = new Promise((resolve, reject) => {
-        word.classList.add("found-animation");
-    });
-    return newAddPromise;
-};
-
-const removeAnimationClass = (word) => {
-    /*
-    remueve una clase de animacion de css
-    */
-    const newRemovePromise = new Promise((resolve, reject) => {
-        word.classList.remove("found-animation");
-    });
-    
-    return newAddPromise;
-};
-
-const animateFoundWord = (listCellsId) => {
-    /*
-    funcion encargada de animar las celdas al encontrar una palabra
-    correcta
-    */
-    for (let id = 0; id < listCellsId.length; id++) {
-        let element = document.getElementById(listCellsId[id]);
-        addAnimationClass(element).then(() => removeAnimationClass(element));
-    }
-
-    //listLettersCellsId = [];
-    
-};
-
 const main = () => {
     
     // creando matriz de ceros
@@ -487,24 +450,3 @@ for (const btnNewGame of btnsNewGame) {
         main(); //llamamos a la funcion principal de juego
     });
 }
-
-/*
-Falta:
-- validar que la palabra encontrada este en la lista y añadir las celdas que ya estan listas a un array que
-    deberá ser verificado antes de limpiar el tablero, de esta manera siempre se mantendrán pintadas las palabras previamente encontradas - LISTO
-- Agregar la posibilidad de seleccionar palabras en diagonal
-- Corregir: cuando se cambia de direccion de seleccion de celda, se requiere un doble clic para pintar la nueva celda, cambiar esto. -- listo
-- poner cuadro de puntaje, btns de restablecer y nuevo juego, musica de fondo y al encontrar palabra
-- poner pops de ganar(al quedarse sin palabras) y perder (al acabarse el tiempo)
-- poner en mayusculas las palabras, antes de agregarlas tanto a la matriz como al listado de palabras. -- listo
-- poner las celdas rectangulares ya que al ser circulares hay problemas al pintarlas moviendo el mouse. -- listo
-- verificar la palabra seleccionada tanto al derecho como al reves para los casos en los que el usuario la selecciona al contrario
-- OPCIONAL: 
-    - poner colores de fondo rgba para las celdas a fin de mezclar el color de fondo o validar su ya tiene color de fondo, en ese caso tomar 
-    el color de fondo y poner un degrade del nuevo y viejo color
-    - se desactivaron las diagonales, mientras se crea la validacion de estas.
-    - poner animacion al encontrar palabra algo asi como girar las letras y su contenido o algo por el estilo
-- Nota:
-    - se puede calcular el puntaje, dependiendo de la longitud de las palabras, es decir dar un puntaje por letra
-    acertada y sumarlo con el tiempo restante, de esta manera cada sopa de letras dará como resultado un puntaje maximo diferente
-*/
