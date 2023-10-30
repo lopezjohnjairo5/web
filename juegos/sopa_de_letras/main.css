@@ -33,6 +33,13 @@ body{
     align-items: center;
 }
 
+.found-word-style{
+    font-size: 0;
+    font-weight: bold;
+    text-decoration:line-through;
+}
+
+
 #options,
 #info-menu{
     width: 50%;
@@ -162,7 +169,7 @@ body{
 /*animations*/
 
 .found-animation{
-    animation-duration: 2s;
+    animation-duration: 1.5s;
     animation-name: found;
 }
 
@@ -181,7 +188,7 @@ body{
         border-radius: 0;
         font-size: 1em;
     }
-    50% {
+    40% {
         transform: rotate(180);
         border-radius: 50%;
         font-size: 1.5em;
@@ -189,7 +196,7 @@ body{
     100% {
         transform: rotate(180);
         border-radius: 0;
-        font-size: 1em;
+        font-size: 0;
     }
 }
 

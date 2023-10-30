@@ -14,7 +14,7 @@ const fillMatrizZeros = () => {
         passArray = [];
     }
 
-    console.log(matrizGame);
+    //console.log(matrizGame);
 };
 
 const selectNewColor = () => {
@@ -40,7 +40,7 @@ const cleanBoardGame = () => {
 
     // recorremos todas las celdas y las limpiamos una por una
     for (const it of cellsGroup) {
-        console.log(`it.dataset.fixed: ${it.dataset.fixed}`);
+        //console.log(`it.dataset.fixed: ${it.dataset.fixed}`);
         // si la celda tiene data-fixed = 1 no la tocamos.
         if (it.dataset.fixed != 1) {
             it.style.background = "white";
@@ -64,7 +64,7 @@ const verifyPositionClicked = (lastE, newE) => {
     funcion encargada de verificar si el elemento que se ha clicado esta 
     a la derecha, izquierda, arriba o abajo del elemento anteriormente clicado
     */
-    console.log(`lastE: ${lastE} newE: ${newE}`);
+    //console.log(`lastE: ${lastE} newE: ${newE}`);
     partsLast = lastE.split("-");
     partsNew = newE.split("-");
     // convertimos los valores a enteros para poder trabajar bien
@@ -247,6 +247,7 @@ const putListwordsInBoard = () => {
     listWordsSpace.innerHTML = ""; 
     for (let item = 0; item < matrizGameWords.length; item++) {
         listElement = document.createElement("li");
+        listElement.setAttribute("data-pos",item + 1);
         listElement.innerHTML = `${item + 1} - ${matrizGameWords[item]}`;
         listWordsSpace.appendChild(listElement);
     }
@@ -323,8 +324,8 @@ const putDataValueToCells = (dataValue = 1) => {
     */
 
     for (const it of cellsGroup) {
-        styleE = getComputedStyle(it).background; // obtenemos el color de fondo de cada celda, si es distinto a blanco, entonces...
-        if (styleE != "white" && styleE != "rgb(255, 255, 255)") {
+        styleE = getComputedStyle(it).backgroundColor; // obtenemos el color de fondo de cada celda, si es distinto a blanco, entonces...
+        if (styleE != "white" && styleE != "rgb(255, 255, 255)" && styleE != "#ffffff") {
             it.dataset.fixed = dataValue;
         }
     }
@@ -342,7 +343,7 @@ const searchedWordInList = (word) => {
     resultSW = matrizGameWords.indexOf(word); // palabra en orden
     resultInv = matrizGameWords.indexOf(investword(word)); // palabra invertida
     if (resultSW != -1) {
-        matrizGameWords.splice(resultSW,1);
+        matrizGameWords.splice(resultSW,1);// ejecutando animacion de eliminacion de la palabra
         putDataValueToCells(); // poniendo valor al data fixed para evitar que se limpien las palabras correctas
         resultSearch = true;
     } else if (resultInv != -1){
@@ -365,7 +366,7 @@ const main = () => {
     fillMatrizWords();
 
     // llenando los campos restantes con letras al azar
-    putAleatoryLetters();
+    //putAleatoryLetters();
 
     // llenando el tablero DOM
     putInBoard(); 
@@ -388,6 +389,10 @@ const activeChangeColor = (e) => {
         elementClicket = document.getElementById(e.target.id); // indica el ID del elemento al cual se le dió click
         listLettersCellsId.push(e.target.id); // array con los ids de las celdas selecionadas usado para animar la palabra encontrada
         
+        console.log("-------------------------------------------");
+        console.log(`countCellPainted: ${countCellPainted == 0} ; `);
+        console.log("-------------------------------------------");
+
         if (countCellPainted == 0 || verifyPositionClicked(lastClickedElement,e.target.id)) {
 
             elementClicket.style.background = backgroundColor;            
@@ -398,21 +403,22 @@ const activeChangeColor = (e) => {
             searchedWord += e.target.innerHTML; //formando la palabra que el usuario esta seleccionando letra a letra
             resultSWL = searchedWordInList(searchedWord); //buscamos la palabra que forma el usuario, si esta en el listado, eliminamos la palabra de la lista
             
+            console.log(`resultSWL ${resultSWL}`);
+
             //calculando el score o puntaje segun la longitud de la palabra
             if (resultSWL) {
-                //animateFoundWord(listLettersCellsId); // NO FUNCIONA
                 calculateScore(searchedWord.length);
-                console.log(`newScore : ${newScore}`);
-                
+                //console.log(`newScore : ${newScore}`);
+                //console.log(`---------matrizGameWords = ${matrizGameWords}`);
                 //verificamos si aun existen palabras en el listado, en caso contrario mostramos el pop win
                 if (matrizGameWords.length < 1) {
-                    console.log(`matrizGameWords : ${matrizGameWords}`);
+                    //console.log(`matrizGameWords : ${matrizGameWords}`);
                     // llamar aqui al pop de perder
                     openPops("pop-win");
                 }
             }
             
-            console.log(`searchedWord = ${searchedWord}`);
+            //console.log(`searchedWord = ${searchedWord}`);
         } else {
             listLettersCellsId = []; // array con los ids de las celdas selecionadas usado para animar la palabra encontrada
         }
@@ -434,7 +440,7 @@ gameBoard.addEventListener("pointerdown", (e) => {
 
     if (!clickActive) {
         gameBoard.removeEventListener("pointerover", activeChangeColor);
-        console.log("aqui");
+        //console.log("aqui");
     }
 });
 

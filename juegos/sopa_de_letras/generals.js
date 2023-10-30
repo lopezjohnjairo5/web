@@ -11,7 +11,7 @@ let popsElements = document.getElementsByClassName('pops'),
     lastClickedElement = 0,
     scoreCalc = 10, // valor por el cual se multiplica la longitud de la palabra
     newScore = 0, // variable que almacenará el nuevo puntaje
-    minutes = 5,
+    minutes = 5, 
     seconds = 0,
     chrono,
     listLettersCellsId = [], // array utilizado para llevar un conteo de los ids de las celdas seleccionadas por el usuario, este será usado para saber cuales animar al encontrar una palabra
