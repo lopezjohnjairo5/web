@@ -11,6 +11,7 @@ const openPops = (id) => {
     SE DEBE DESHABILITAR EL TIEMPO Y DEMAS.
     */
     clearInterval(chrono);
+    pauseSound(clockSound); //pausamos el sonido del reloj
     
     //chronometerM.stop();
 
@@ -39,6 +40,7 @@ for (const it of btnsMenu) {
         idElement = e.target.closest(".btns-menu").id; // ubicamos el ID del btn, buscando el elemento mas cercano con la clase btns-menu
         id = idElement.replace("btn","pop"); // reemplazamos btn por pop en el id pasado por parametro
         openPops(id); // pasamos el id del elemento clicado
+        replaySound(clickBtnSound); // sonido de click en btn
     });
 }
 
@@ -49,5 +51,6 @@ for (const it of btnClosePops) {
         idElement = e.target.id.replace("close-",""); // quitamos la palabra close del id obtenido para poder cerrar el pop padre de la X
         console.log(`Clic en: ${e.target}`);
         closePops(idElement);
+        replaySound(clickBtnSound); // sonido de click en btn
     });
 }

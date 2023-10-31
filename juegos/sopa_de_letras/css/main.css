@@ -145,6 +145,7 @@ body{
     text-decoration: none;
 }
 
+.save-btn-pop,
 .btns-pops{
     margin-top: 10px;
     padding: 10px;
@@ -156,6 +157,25 @@ body{
 #pop-win,
 #pop-lose{
     display: none;
+}
+
+#pop-config label{
+    width: 40%;
+    margin: 5px 0;
+    display: flex;
+    flex-direction: row;
+}
+#pop-config label span,
+#pop-config label input{
+    width: 100%;
+}
+
+#pop-config label span{
+    justify-content: flex-start;
+}
+
+#pop-config label input[type="range"]{
+    width: 100%;
 }
 
 #pop-new-game{
@@ -221,6 +241,10 @@ body{
         grid-template-columns: repeat(16,23px);
         grid-template-rows: repeat(16,23px);
     }
+    
+    .cells{
+        font-size: 0.8em;
+    }
 
     #game-list{
         width: 100%;
@@ -237,15 +261,20 @@ body{
 
     #list-words{
         height: 100%;
-        display: grid;
-        grid-template-columns: repeat(4,1fr);
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    #list-words li{
+        margin: 0 10px;
+        padding: 5px;
+        font-size: 0.8em;
     }
 
-    /*
-    #pop-new-game{
-        display: none;
+    /*config pop*/
+    #pop-config label{
+        width: 60%;
+        flex-direction: column;
+        margin: 10px;
     }
-    .pops{
-        display: none;
-    }*/
 }

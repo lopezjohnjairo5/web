@@ -31,7 +31,15 @@ let popsElements = document.getElementsByClassName('pops'),
     cellsGroup = document.getElementsByClassName('cells'),
     listWordsSpace = document.getElementById("list-words"),
     gameBoard = document.getElementById("game-board"),
-    clickActive = false; // variable trigger / gatillo, indica cuando se crea o elimina un listener
+    clickActive = false, // variable trigger / gatillo, indica cuando se crea o elimina un listener
+    // cargando sonidos
+    backGSound = loadMusic("./sounds/background.mp3",true),
+    correctSound = loadMusic("./sounds/correct.mp3",false),
+    errorSound = loadMusic("./sounds/error.mp3",false),
+    winSound = loadMusic("./sounds/win.mp3",false),
+    loseSound = loadMusic("./sounds/lose.mp3",false),
+    clickBtnSound = loadMusic("./sounds/click.mp3",false),
+    clockSound = loadMusic("./sounds/clock.mp3",true);
 
 const restartGameVars = () => {
     /*

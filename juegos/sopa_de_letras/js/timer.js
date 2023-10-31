@@ -5,8 +5,10 @@ const contentInterval = () => {
         if (seconds == 0) {
             if (minutes == 0 && seconds == 0) {
                 clearInterval(chrono);
-                // llamar aqui al pop de perder
-                openPops("pop-lose");
+                
+                openPops("pop-lose"); // llamar aqui al pop de perder
+                replaySound(loseSound); // reproducimos el sonido de perder
+                pauseSound(backGSound); // detenemos la musica de fondo
             }
             seconds = 60;
             minutes--;
@@ -21,7 +23,7 @@ const chronometer = () => {
     */
     //minutes = 5;
     //seconds = 0;
-    
+    replaySound(clockSound); // sonido reloj
     chrono = setInterval(contentInterval,chronometerTime);
 
     // funciones internas para pausar, resetear y detener el timer

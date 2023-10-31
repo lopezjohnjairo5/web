@@ -1,0 +1,13 @@
+<script src="./js/sounds.js"></script>
+<script src="./js/audio-config.js"></script>
+<script src="./js/generals.js"></script>
+<script src="./js/verification.js"></script>
+<script src="./js/color.js"></script>
+<script src="./js/listWords.js"></script>
+<script src="./js/draw-in-board.js"></script>
+<script src="./js/matriz.js"></script>
+<script src="./js/menu-btns.js"></script>
+<script src="./js/score.js"></script>
+<script src="./js/timer.js"></script>
+<script src="./js/animations.js"></script>
+<script src="./js/main.js"></script>

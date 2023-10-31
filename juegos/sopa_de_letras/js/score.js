@@ -6,4 +6,5 @@ const calculateScore = (wordLenght) => {
     
     newScore += (wordLenght * scoreCalc);
     score.innerHTML = newScore; 
+    //replaySound(correctSound); // reproducimos el sonido de correcto
 };
